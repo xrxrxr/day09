@@ -3,23 +3,20 @@ require 'nokogiri'
 require 'open-uri'
 
 
-def cours_crypto
+def cours_crypto 
 	page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/"))
-	@price = []
-	@name = []
+	@prix = []
+	@nom = []
 	page.xpath('//a').each do |x|
 		if x.to_s.include?('class="currency-name-container link-secondary"')
-		#if x.to_s.include?('class="no wrap currency-name-container link-sec"')
-			#if x.to_s.include?('class="td"')
-
-			@name << x.text
+			@nom << x.text
   		elsif x.to_s.include?('class="price"')
-			@price << x.text
-		end
+			@prix << x.text
+		end	
 	end
-	return @price, @name
+	return @prix, @nom
 end
 
 p cours_crypto
-hasho = Hash[@name.zip(@price)]
-#puts hasho
+hashi = Hash[@nom.zip(@prix)]
+puts hashi
